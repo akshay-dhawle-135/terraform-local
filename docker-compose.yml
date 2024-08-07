@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4566:4566" # LocalStack Edge Port (for all services)
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - LOCALSTACK_SERVICES=s3,apigateway,lambda,events,sts,iam,logs,cloudwatch # Only EventBridge service
+      - IAM_SOFT_MODE=1
+      - DEBUG=1
+      # - PROVIDER_OVERRIDE_EVENTS=v2
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - "./localstack:/etc/localstack" # Optional: for additional configuration
+    networks:
+      - localstack_network
+
+networks:
+  localstack_network:
+    driver: bridge
+
