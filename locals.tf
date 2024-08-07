@@ -1,6 +1,4 @@
 locals {
-  identity_api_suffix = "v1/event/identity"
-  authorization_suffix = "oauth2/token"
   identity_connection = {
     name        = "identity-connection"
     description = "Http connection for identity events"
